@@ -1,0 +1,653 @@
+<style>
+  .progress-outer {
+    margin-top: -10px!important;
+  }
+</style>
+
+
+<app-partials></app-partials>
+
+
+<div class="content-page">
+  <!-- Start content -->
+  <div class="content">
+    <div class="col-xs-12">
+      <div class="page-title-box">
+        <div class="col-xs-3">
+          <h4 class="page-title">Merchants Details <span> - Approval Progress</span>
+        </h4>
+        </div>
+        <div class="col-xs-3">
+        <span>
+          <progress-bar [progress]="approvalprogress"   [color-degraded]="{'0': '#00cbcb',  '15': '#f9c3d3', '25': '#706db7', '90':'#4BB543'}" class="progress-approval-bar">
+          </progress-bar>
+         </span>
+        </div>
+
+        <div class="col-xs-4" style="float: right">
+        <ol class="breadcrumb p-0 m-0">
+
+          <li>
+            <a href="#">Jenga Admin</a>
+          </li>
+
+
+          <li>
+            <a routerLink="/dashboard">Dashboard</a>
+          </li>
+          <li class="active" *ngIf="merchantPersonalDetails.merchantStatus === 'ACTIVE'">
+            <a routerLink="/active/merchants">Active Merchants</a>
+          </li>
+
+          <li class="active" *ngIf="merchantPersonalDetails.merchantStatus === 'INACTIVE'">
+            <a routerLink="/inactive/merchants">Inactive Merchants</a>
+          </li>
+
+           <li class="active" *ngIf="merchantPersonalDetails.merchantStatus === 'PENDING ACTIVATION'">
+            <a routerLink="/pending/activation">Merchants Pending Verification</a>
+          </li>
+          <li class="active">
+            {{id}}
+          </li>
+        </ol>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="col-md-12 card-box">
+
+        <ul class="nav nav-tabs tabs-bordered nav-justified">
+          <li class="active">
+            <a aria-expanded="true" href="#information" data-toggle="tab">
+              <span class="visible-xs"><i class="fa fa-home"></i></span>
+              <span class="hidden-xs">Information</span>
+            </a>
+          </li>
+          <li>
+            <a aria-expanded="false" href="#charges" data-toggle="tab" (click)="setProgress()">
+              <span class="visible-xs"><i class="fa fa-user"></i></span>
+              <span class="hidden-xs">Charges</span>
+            </a>
+          </li>
+          <li>
+            <a aria-expanded="false" href="#outlets" data-toggle="tab" (click)="setProgress()">
+              <span class="visible-xs"><i class="fa fa-envelope-o"></i></span>
+              <span class="hidden-xs">Outlets</span>
+            </a>
+          </li>
+          <li>
+            <a aria-expanded="false" href="#services" data-toggle="tab" (click)="setProgress()">
+              <span class="visible-xs"><i class="fa fa-cog"></i></span>
+              <span class="hidden-xs">Services</span>
+            </a>
+          </li>
+          <li>
+            <a aria-expanded="false" href="#settlement" data-toggle="tab" (click)="setProgress()">
+              <span class="visible-xs"><i class="fa fa-cog"></i></span>
+              <span class="hidden-xs">Settlement</span>
+            </a>
+          </li>
+          <li>
+            <a aria-expanded="false" href="#merchantusers" data-toggle="tab" (click)="setProgress()">
+              <span class="visible-xs"><i class="fa fa-cog"></i></span>
+              <span class="hidden-xs">Merchant Users</span>
+            </a>
+          </li>
+          <li>
+            <a aria-expanded="false" href="#approval" data-toggle="tab" (click)="setProgress()">
+              <span class="visible-xs"><i class="fa fa-cog"></i></span>
+              <span class="hidden-xs">Approval</span>
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="information">
+            <div class="col-md-12 panel panel-default">
+
+              <span *ngIf="!merchantPersonalDetails"> <img src="../../assets/images/loader.gif" style="width: 10%; margin-left: 40%; margin-top: 10%"></span>
+
+                <div class="panel-body">
+                  <div class="clearfix">
+                    <div class="pull-left">
+                      <h3> {{merchantPersonalDetails.merchantName}}</h3>
+                    </div>
+                    <div class="pull-right">
+                      <h4 *ngIf="merchantPersonalDetails">Merchant Code <br>
+                        <strong>{{merchantPersonalDetails.merchantCode}}</strong>
+                      </h4>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <div class="pull-left m-t-30">
+                        <span *ngIf="merchantPersonalDetails.merchantName"><strong>Registered Business Name: </strong>{{merchantPersonalDetails.merchantName}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantEmailAddress"><strong>Company Email:</strong> {{merchantPersonalDetails.merchantEmailAddress}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantMobile1"><strong>Mobile:</strong> {{merchantPersonalDetails.merchantMobile1}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantType"><strong>Merchant Type:</strong> {{merchantPersonalDetails.merchantType}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantCreatedBy"><strong>Created By:</strong> {{merchantPersonalDetails.merchantCreatedBy}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantCreatedOn"><strong>Created On:</strong> {{merchantPersonalDetails.merchantCreatedOn}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantUrl"><strong>Website:</strong> {{merchantPersonalDetails.merchantUrl}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantPhysicalAddress"><strong>Physical Location:</strong> {{merchantPersonalDetails.merchantPhysicalAddress}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantStatus"><strong>status: </strong> {{merchantPersonalDetails.merchantStatus}} <br></span>
+                        <span *ngIf="merchantPersonalDetails.merchantDuration"><strong>Settlement Duration :</strong>{{merchantPersonalDetails.merchantDuration}}<br></span>
+                         <span *ngIf="merchantPersonalDetails.merchantMaker"><strong>Maker:</strong> {{merchantPersonalDetails.merchantMaker}} <br></span>
+                           <span *ngIf="merchantPersonalDetails.merchantMakerComment"><strong>Maker Comment:</strong>{{merchantPersonalDetails.merchantMakerComment}} <br></span>
+                           <span *ngIf="merchantPersonalDetails.merchantChecker"><strong>Checker:</strong> {{merchantPersonalDetails.merchantChecker}}<br></span>
+                           <span *ngIf="merchantPersonalDetails.merchantCheckerComment"><strong>Checker Comment:</strong> {{merchantPersonalDetails.merchantCheckerComment}}<br></span>
+                      </div>
+                      <div class="pull-right m-t-10" *ngIf="merchantPersonalDetails">
+                        <strong><h3>Documents</h3></strong>
+                        <table>
+                          <tr *ngFor="let document of merchantSingleDetails.documentRegistry">
+                            <td><strong>{{document.documentType}}</strong></td> <a (click)="showPdf(document.identityDocument, document.documentType, document.mimetype)" style="padding-left: 10px;">Download</a>
+                          </tr>
+                        </table>
+                      </div>
+                    </div><!-- end col -->
+                  </div>
+                  <!-- end row -->
+
+                  <div class="m-h-50"></div>
+
+                  <hr>
+                  <div class="hidden-print">
+                    <div class="pull-right">
+                      <a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
+                      <a href="#" class="btn btn-primary waves-effect waves-light">EDIT</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+          </div>
+          <div class="tab-pane" id="charges">
+            <div class="col-md-12 panel panel-default">
+              <div class="panel-body">
+                <div class="clearfix">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <div class="m-t-0 header-title pull-right">
+                    <button class="btn btn-primary waves-effect waves-light" data-toggle="modal" data-target="#con-close-modal" [disabled]="merchantSingleDetails.chargesDetails.length"> <i class="fa fa-plus m-r-5"></i> <span>Assign Charge</span> </button>
+                  </div>
+
+                  <table class="table table-striped  table-colored table-info dataTable no-footer" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+				  <span *ngIf="!merchantSingleDetails.chargesDetails"> <img src="../../assets/images/loader.gif" style="width: 20%; margin-left: 70%; margin-top: 10%"></span>
+                    <thead>
+
+                     <tr><th>#</th>
+                      <!--<th>MERCHANT CODE</th>-->
+                      <th>CHARGE CODE</th>
+                      <th>STATUS</th>
+                      <th>ACTION</th>
+                    </tr></thead>
+                    <tbody>
+
+                    <tr *ngFor="let charges of merchantSingleDetails.chargesDetails">
+
+                      <td>{{charges.configId}}</td>
+                      <!--<td>{{charges.merchantCode}}</td>-->
+                      <td>{{charges.chargeId}}</td>
+                      <td>{{charges.status}}</td>
+					            <td>  <span data-toggle="modal" data-target="#con-edit-modal" style="cursor: pointer;" (click)="setConfigId(charges.configId)"> <i class="glyphicon glyphicon-edit"></i> Edit</span></td>
+
+                    </tr>
+                    <span *ngIf="!merchantSingleDetails.chargesDetails.length"> <h4 class="no-data-txt">No Data at the Moment</h4> </span>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="outlets">
+            <div class="col-md-12 panel panel-default">
+              <div class="panel-body">
+                <div class="clearfix">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <table class="table table-striped  table-colored table-info dataTable no-footer" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                          <thead>
+                          <tr>
+                            <th>OUTLET NAME</th>
+                            <th>OUTLET CODE</th>
+                            <th>ADDRESS</th>
+                            <th>LOCATION</th>
+                            <th>MID</th>
+                            <th>STATUS
+                            <th>ACTION</th>
+                          </tr></thead>
+                          <tbody>
+                          <tr *ngFor="let outlet of merchantSingleDetails.merchantOutlet" [ngSwitch]="outlet.status">
+                            <td>{{outlet.outletName}}</td>
+                            <td>{{outlet.outletCode}}</td>
+                            <td>{{outlet.address}}</td>
+                            <td>{{outlet.location}}</td>
+                            <td>{{outlet.midId}}</td>
+                            <td *ngSwitchCase="0"> <span class="label label-success">Active</span></td>
+                            <td *ngSwitchCase="1"> <span class="label label-danger">Pending</span></td>
+                            <td>  <span data-toggle="modal" data-target="#outlet-edit-modal" style="cursor: pointer;" (click)="setOutletId(outlet.id)"> <i class="glyphicon glyphicon-edit"></i> Edit</span></td>
+                          </tr>
+                          <span *ngIf="!merchantSingleDetails.merchantOutlet.length"> <h4 class="no-data-txt">No Data at the Moment</h4> </span>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="services">
+            <div class="col-md-12 panel panel-default">
+              <div class="panel-body">
+                <div class="clearfix">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <table class="table table-striped  table-colored table-info dataTable no-footer" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                          <thead>
+                          <tr>
+                            <th>SERVICE NAME</th>
+                            <th>STATUS</th>
+                            <th>ACTION</th>
+                          </tr></thead>
+                          <tbody>
+                          <tr *ngFor="let service of merchantSingleDetails.partnerBouquets" [ngSwitch]="service.status">
+                            <td>{{service.bouquetId.name}}</td>
+                            <td *ngSwitchCase="0"> <span class="label label-success">Active</span></td>
+                            <td *ngSwitchCase="2"> <span class="label label-danger"> Maker Pending</span></td>
+                            <td *ngSwitchCase="3"> <span class="label label-danger"> Checker Pending</span></td>
+                            <td *ngIf="service.status !='0'">  <span data-toggle="modal" data-target="#service-approve-modal" style="cursor: pointer;" (click)="setServiceId(service.id)"> <i class="glyphicon glyphicon-edit"></i> Approve</span></td>
+                            </tr>
+                          <span *ngIf="!merchantSingleDetails.partnerBouquets.length"> <h4 class="no-data-txt">No Data at the Moment</h4> </span>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="settlement">
+            <div class="col-md-12 panel panel-default">
+              <div class="panel-body">
+                <div class="clearfix">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <table class="table table-striped  table-colored table-info dataTable no-footer" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                          <thead>
+                          <tr>
+                            <th>COUNTRY</th>
+                            <th>SERVICE</th>
+                            <th>MODE</th>
+                            <th>ACCOUNT NAME</th>
+                            <th>ACCOUNT NUMBER</th>
+                            <th>CURRENCY</th>
+                            <th>STATUS</th>
+                            <th>ACTION</th>
+                          </tr></thead>
+                          <tbody>
+                          <tr *ngFor="let settlementDetails of merchantSingleDetails.pgwSettlementDetails" [ngSwitch]="settlementDetails.status">
+                            <td>{{settlementDetails.country}}</td>
+                            <td>{{settlementDetails.bouquetId.code}}</td>
+                            <td>{{settlementDetails.bouquetId.paymentMode}}</td>
+                            <td>{{settlementDetails.accountName}}</td>
+                            <td>{{settlementDetails.accountNumber}}</td>
+                            <td>{{settlementDetails.currencyCode}}</td>
+                            <td *ngSwitchCase="0"> <span class="label label-success">Active</span></td>
+                            <td *ngSwitchCase="1"> <span class="label label-danger">Maker Pending</span></td>
+                            <td *ngSwitchCase="3"> <span class="label label-danger">Checker Pending</span></td>
+                            <td *ngSwitchCase="2"> <span class="label label-danger">Inactive</span></td>
+                            <td *ngSwitchCase="4"> <span class="label label-danger">Disabled</span></td>
+                            <td *ngIf="settlementDetails.status == 4"> <span data-toggle="modal" data-target="#settlement-account-enable-modal" style="cursor: pointer;" (click)="setSettlementAccount(settlementDetails.id)"> <i class="glyphicon glyphicon-ok"></i>  Enable</span></td>
+                            <td *ngIf="settlementDetails.status == 0"> <span data-toggle="modal" data-target="#settlement-account-disable-modal" style="cursor: pointer;" (click)="setSettlementAccount(settlementDetails.id)"> <i class="glyphicon glyphicon-remove"></i>Disable</span></td>
+                          </tr>
+                          <span *ngIf="!merchantSingleDetails.pgwSettlementDetails.length"> <h4 class="no-data-txt">No Data at the Moment</h4> </span>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="merchantusers">
+            <div class="col-md-12 panel panel-default">
+              <div class="panel-body">
+                <div class="clearfix">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="table-responsive">
+                        <table class="table table-striped  table-colored table-info dataTable no-footer" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                          <thead>
+                          <tr>
+                            <th>FIRST NAME</th>
+                            <th>LASTNAME</th>
+                            <th>USERNAME</th>
+                            <th>EMAIL</th>
+                            <th>STATUS</th>
+                          </tr></thead>
+                          <tbody>
+                          <tr *ngFor="let userdetails of merchantSingleDetails.merchantUsers" [ngSwitch]="userdetails.status">
+                            <td>{{userdetails.firstName}}</td>
+                            <td>{{userdetails.lastName}}</td>
+                            <td>{{userdetails.username}}</td>
+                            <td>{{userdetails.email}}</td>
+                            <td *ngSwitchCase="0"> <span class="label label-success">Active</span></td>
+                            <td *ngSwitchCase="1"> <span class="label label-danger">Pending</span></td>
+                              </tr>
+                          <span *ngIf="!merchantSingleDetails.merchantUsers.length"> <h4 class="no-data-txt">No Data at the Moment</h4> </span>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="approval">
+            <h6> Settlement Duration</h6>
+              <select multiple="" [(ngModel)] ="merchantDetails.settlementDuration" name="settlementDuration" class="form-control">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+              </select>
+
+              <div class="row">
+                  <div class="col-lg-12 col-md-6">
+                      <div class="text-center" style="margin-top: 30px;">
+                          <h4 class="m-b-5">Enforce 3DSecure For Card Payments</h4>
+                      </div>
+
+                  </div>
+              </div>
+              <div class="col-lg-12 col-md-6">
+                  <div class="text-center">
+                       <input #saveSecuredCheckBox
+                           id="saveSecuredCheckBox"
+                           type="checkbox"
+                           [checked]="secured"
+                           [(ngModel)] ="merchantDetails.secured"
+                           (change)="enforceSecurity(saveSecuredCheckBox.checked)" />
+                  </div>
+
+              </div>
+
+              <div class="row">
+                  <div class="col-md-12" style="margin-top:10px">
+                    <div class="form-group no-margin">
+                      <label for="field-7" class="control-label">Comment</label>
+                      <textarea class="form-control autogrow" id="field-71" placeholder="comment about this merchants details" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;" [(ngModel)] ="merchantDetails.description" name="description"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+
+                    <p class="text-left font-13" style="margin-top: 10px">
+                        <!--<a class="btn btn-info waves-effect waves-light" href="/pgw/merchant/validateMerchant/9287862503">-->
+                            <!--<span>Validate Merchant</span></a>-->
+                        &nbsp;&nbsp;&nbsp;
+                      <span *ngIf="merchantSingleDetails.merchantDetail.merchantStatus === 'PENDING ACTIVATION'"><span *ngIf="loadingapprovebtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="makerApproveMerchant(true, false, merchantDetails)" data-dismiss="modal"> Approve</button></span></span>
+                      <span *ngIf="loadingapprovebtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+
+                      <span *ngIf="merchantSingleDetails.merchantDetail.merchantStatus === 'ACTIVE'"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="makerApproveMerchant(true, false, merchantDetails)" data-dismiss="modal"> Block</button></span>
+
+                      <span *ngIf="merchantSingleDetails.merchantDetail.merchantStatus === 'PENDING ACTIVATION'"><span *ngIf="loadingrejectbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="makerRejectMerchant(false, false, merchantDetails)" data-dismiss="modal"> Reject</button></span></span>
+                      <span *ngIf="loadingrejectbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+
+                      &nbsp;&nbsp;&nbsp;
+                      <span *ngIf="merchantSingleDetails.merchantDetail.merchantStatus === 'PENDING ACTIVATION'"><span *ngIf="loadingreturnbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="makerReturnMerchant(false, false, merchantDetails)" data-dismiss="modal"> Return</button></span></span>
+                      <span *ngIf="loadingreturnbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+
+                      &nbsp;&nbsp;&nbsp;<span *ngIf="merchantSingleDetails.merchantDetail.merchantStatus === 'PENDING ACTIVATION'">
+                        <button type="button" class="btn btn-primary">Delete
+                        </button>
+                    </span>
+                    </p>
+
+                </div>
+
+          </div>
+
+
+  <div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title modal-txt">Assign Charge</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="col-md-12" style="margin-left: -15px; margin-top:10px">
+
+               <label for="field-11" class="control-label">Select Charge</label>
+                <select class="form-control" id="field-11" [(ngModel)]="merchantDetails.chargeCode" (change)="getChargeCode($event.target.value)" name="chargeCode">
+                  <option  class="form-control" *ngFor="let charge of charges" [value]="charge.chargeCode">{{charge.chargeName}}</option>
+                  </select>
+              </div>
+              </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <div class="col-md-12" style="margin-left: -23px; margin-top:10px">
+                <label for="field-2" class="control-label">Charge paid by</label>
+                <select class="form-control" id="field-2" [(ngModel)]="merchantDetails.status" (change)="getStatus($event.target.value)" name="status">
+                    <option value="1">Customer</option>
+                    <option value="0">Merchant</option>
+                  </select>
+              </div>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+            <div class="col-md-12" style="margin-top:10px">
+              <div class="form-group no-margin">
+                <label for="field-7" class="control-label">Description</label>
+                <textarea class="form-control autogrow" id="field-7" placeholder="Write something about yourself" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;" [(ngModel)] ="merchantDetails.description" name="description"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>
+          <span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="assignMerchantCharge(merchantDetails)" data-dismiss="modal"> Assign</button></span>
+          <span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+          </div>
+      </div>
+    </div>
+  </div><!-- /.modal -->
+</div>
+
+
+  <div id="con-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title modal-txt">Edit Merchant Charge</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group" *ngIf="merchantEditDetails">
+                <div class="col-md-12" style="margin-left: -15px; margin-top:10px">
+                <label for="field-1" class="control-label">Select Charge</label>
+                <select class="form-control" id="field-1" [(ngModel)]="merchantEditDetails.chargeCode" (change)="getChargeCode($event.target.value)" name="chargeCode">
+                  <option  class="form-control" *ngFor="let charge of charges" [value]="charge.chargeCode">{{charge.chargeName}}</option>
+                </select>
+              </div>
+              </div>
+
+            <div class="col-md-12">
+              <div class="form-group" *ngIf="merchantEditDetails">
+                <div class="col-md-12" style="margin-left: -23px; margin-top:10px">
+                <label for="field-2" class="control-label">Charge paid by</label>
+                <select class="form-control" id="field-2" [(ngModel)]="merchantEditDetails.status" (change)="getStatus($event.target.value)" name="status">
+                    <option value="1">Customer</option>
+                    <option value="0">Merchant</option>
+                  </select>
+              </div>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+            <div class="col-md-12" style="margin-top:10px" *ngIf="merchantEditDetails">
+              <div class="form-group no-margin">
+                <label for="field-7" class="control-label">Description</label>
+                <textarea class="form-control autogrow" id="field-7" placeholder="Write something about yourself" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;" [(ngModel)] ="merchantEditDetails.description" name="description"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>
+          <span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="editActiveMerchantChargeDetails(merchantEditDetails)" data-dismiss="modal"> Edit</button></span>
+          <span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+          </div>
+      </div>
+    </div>
+  </div><!-- /.modal -->
+  </div>
+
+    <div id="service-approve-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title modal-txt">Approve Service</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <h4>Are you sure you want to approve this service ?</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>
+              <span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="approveService()" data-dismiss="modal"> Approve</button></span>
+              <span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.modal -->
+    </div>
+
+    <div id="settlement-account-enable-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title modal-txt">Enable Account</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <h4>Are you sure you want to enable this Account ?</h4>
+              </div>
+              <div class="modal-footer">
+
+                <button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>
+                <span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="activateMerchantSettlementAccount()" data-dismiss="modal"> Enable</button></span>
+                <span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+             </div>
+            </div>
+          </div>
+        </div><!-- /.modal -->
+      </div>
+
+      <div id="settlement-account-disable-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title modal-txt">Disable Account</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <h4>Are you sure you want to disable this Account ?</h4>
+                </div>
+                <div class="modal-footer">
+
+                  <button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>
+                  <span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="disableMerchantSettlementAccount()" data-dismiss="modal"> Disable</button></span>
+                  <span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+
+                </div>
+              </div>
+            </div>
+          </div><!-- /.modal -->
+        </div>
+
+
+  <div id="outlet-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title modal-txt">Edit Outlet</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+
+                <div class="form-group" *ngIf="merchantoutltResponse">
+                    <label for="field-32" class="control-label">Outlet Name</label>
+                    <input type="text" class="form-control" id="field-32" placeholder="Address" [(ngModel)] ="merchantoutltResponse.outletName" name="outletname">
+                </div>
+                <div class="form-group" *ngIf="merchantoutltResponse">
+                    <label for="field-34" class="control-label">Outlet Code</label>
+                    <input type="text" class="form-control" id="field-34" placeholder="Address" [(ngModel)] ="merchantoutltResponse.outletCode" name="outletname">
+                </div>
+                <div class="form-group" *ngIf="merchantoutltResponse">
+                    <label for="field-36" class="control-label">Address</label>
+                    <input type="text" class="form-control" id="field-36" placeholder="Address" [(ngModel)] ="merchantoutltResponse.address" name="outletname">
+                </div>
+                <div class="form-group" *ngIf="merchantoutltResponse">
+                    <label for="field-37" class="control-label">Location</label>
+                    <input type="text" class="form-control" id="field-37" placeholder="Address" [(ngModel)] ="merchantoutltResponse.location" name="outletname">
+                </div>
+
+              <div class="form-group" *ngIf="merchantoutltResponse">
+                <div class="col-md-12" style="margin-left: -15px; margin-top:10px">
+                <label for="field-1" class="control-label">Select Mid</label>
+                <select class="form-control" id="field-1" [(ngModel)]="merchantoutltResponse.mid"  name="mid">
+                  <option  class="form-control" *ngFor="let mid of merchantMids.data" [value]="mid.id">{{mid.mpgsMerchantId}}</option>
+                </select>
+              </div>
+              </div>
+
+            </div>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>
+          <span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="editActiveMerchantOutletMids(merchantoutltResponse)"> Edit</button></span>
+          <span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+           </div>
+      </div>
+    </div>
+  </div><!-- /.modal -->
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</div>

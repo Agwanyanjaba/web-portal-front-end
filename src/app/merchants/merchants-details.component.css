@@ -1,0 +1,41 @@
+.pull-left{
+  line-height: 2.1!important;
+}
+
+
+.no-data-txt{
+  text-align: center;
+
+}
+
+a{
+  cursor: pointer;
+}
+
+.modal-txt {
+  text-align: center;
+}
+
+
+@media print
+{
+  .no-print, .no-print *
+  {
+    display: none !important;
+  }
+}
+
+.btn-bordered.btn-danger {
+  width: 12px;
+  margin: 10px;
+}
+
+.progress-approval-bar {
+  margin-top: -10px !important;
+   width: 100% !important;
+  display: inline-block !important;
+}
+
+.progress-outer {
+  margin-top: -10px !important;
+}

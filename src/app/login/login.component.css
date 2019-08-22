@@ -1,0 +1,26 @@
+.login-header-txt {
+  margin-bottom: 35px;
+  text-align: -webkit-center;
+}
+
+.login-logo{
+  padding-top: 33px;
+  padding-left: 80px;
+  padding-bottom: 30px;
+}
+
+.login-bg {
+  width: 90%;
+  height: 660px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25);
+  border: solid 1px #f6f6f6;
+  background-image: linear-gradient(to left, #706db7, #603b80);
+}
+
+.login-bg_one {
+  width: 99.4%;
+  height: 315px;
+  background-image: url('../../assets/images/login_bg.PNG');
+  background-size: cover;
+
+}

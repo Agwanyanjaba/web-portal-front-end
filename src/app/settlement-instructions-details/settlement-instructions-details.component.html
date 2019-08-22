@@ -1,0 +1,507 @@
+<style>
+  .progress-outer {
+    margin-top: -10px!important;
+  }
+</style>
+
+
+<app-partials></app-partials>
+
+
+<div class="content-page">
+  <!-- Start content -->
+  <div class="content">
+    <div class="col-xs-12">
+      <div class="page-title-box">
+        <div class="col-xs-8">
+          <h4 class="page-title">Settlement Instruction Details - <span><span *ngIf="instruction_details_data.payRefNo">{{instruction_details_data.payRefNo}}</span></span>
+          </h4>
+        </div>
+        <div class="col-xs-3">
+        <!--<span>-->
+          <!--<progress-bar [progress]="approvalprogress"   [color-degraded]="{'0': '#00cbcb',  '15': '#f9c3d3', '25': '#706db7', '90':'#4BB543'}" class="progress-approval-bar">-->
+          <!--</progress-bar>-->
+         <!--</span>-->
+        </div>
+
+        <div class="col-xs-4" style="float: right">
+          <ol class="breadcrumb p-0 m-0">
+
+            <li>
+              <a href="#">IEATTA</a>
+            </li>
+
+            <li>
+              <a routerLink="/settlement/instruction/list">Settlement Instructions</a>
+            </li>
+
+            <li *ngIf="userRole === 'MAKER'">
+              <a routerLink="/maker/settlement/instruction/list">Pending Instructions</a>
+            </li>
+
+            <li *ngIf="userRole === 'CHECKER'">
+              <a routerLink="/checker/settlement/instruction/list">Pending Instructions</a>
+            </li>
+
+          </ol>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="col-md-12 card-box">
+
+        <!--<ul class="nav nav-tabs tabs-bordered nav-justified">-->
+          <!--&lt;!&ndash;<li class="active">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<a aria-expanded="true" href="#information" data-toggle="tab">&ndash;&gt;&ndash;&gt;-->
+              <!--&lt;!&ndash;&lt;!&ndash;<span class="visible-xs"><i class="fa fa-home"></i></span>&ndash;&gt;&ndash;&gt;-->
+              <!--&lt;!&ndash;&lt;!&ndash;<span class="hidden-xs">Details</span>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;</a>&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;</li>&ndash;&gt;-->
+          <!--&lt;!&ndash;<li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a aria-expanded="false" href="#approval" data-toggle="tab" (click)="setProgress()">&ndash;&gt;-->
+              <!--&lt;!&ndash;<span class="visible-xs"><i class="fa fa-cog"></i></span>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span class="hidden-xs">Approve</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+          <!--&lt;!&ndash;</li>&ndash;&gt;-->
+        <!--</ul>-->
+        <div class="tab-content">
+          <div class="tab-pane active" id="information">
+            <div class="col-md-12 panel panel-default">
+
+              <span *ngIf="!instruction_details_data"> <img src="../../assets/images/loader.gif" style="width: 10%; margin-left: 40%; margin-top: 10%"></span>
+
+              <div class="panel-body">
+                <div class="clearfix">
+                  <div class="pull-left">
+                    <h4> <strong>Sales Invoice Number </strong>{{instruction_details_data.saleInvoiceNumber}}</h4>
+                  </div>
+                  <div class="pull-right">
+                    <h4 *ngIf="instruction_details_data">  <strong>Settlement Reference </strong>  {{instruction_details_data.settlementRefNo}} </h4>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="pull-left">
+                      <strong><h3>Settlement Details</h3></strong>
+                      <span *ngIf="instruction_details_data.payRefNo"><strong>Payment Reference No: </strong>{{instruction_details_data.payRefNo}} <br></span>
+                      <span *ngIf="instruction_details_data.saleInvoiceNumber"><strong>Sales Inv Number:</strong> {{instruction_details_data.saleInvoiceNumber}} <br></span>
+                      <span *ngIf="instruction_details_data.lotNo"><strong>Lot No:</strong> {{instruction_details_data.lotNo}} <br></span>
+                      <span *ngIf="instruction_details_data.mark"><strong>Mark:</strong> {{instruction_details_data.mark}} <br></span>
+                      <span *ngIf="instruction_details_data.producerSettlementAmt"><strong>Settlement Amount:</strong> {{instruction_details_data.producerSettlementAmt}} <br></span>
+                      <span *ngIf="instruction_details_data.totRecord"><strong>Tot Record: </strong> {{instruction_details_data.totRecord}} <br></span>
+                      <span *ngIf="instruction_details_data.producerPostedOn"><strong>Approved On:</strong> {{instruction_details_data.producerPostedOn}}<br></span>
+                      <span *ngIf="instruction_details_data.status"><strong>Status:</strong> {{instruction_details_data.status}}<br></span>
+                      <span *ngIf="instruction_details_data.createdOn"><strong>Created On:</strong> {{instruction_details_data.createdOn}}<br></span>
+
+                      <hr>
+                   <div class="row">
+                    <div class="col-md-12">
+                    <div *ngIf="instruction_details_data">
+
+                      <strong><h3>Partner Details</h3></strong>
+                      <table>
+                        <span *ngIf="instruction_details_data.producerBusinessCode"><strong>Producer Business Code:</strong> {{instruction_details_data.producerBusinessCode}} <br></span>
+                        <span *ngIf="instruction_details_data.producerParticipating"><strong>Producer Participating:</strong> {{instruction_details_data.producerParticipating}} <br></span>
+                        <span *ngIf="instruction_details_data.producerSettlementAmt"><strong>Settlement Amount:</strong> {{instruction_details_data.producerSettlementAmt}} <br></span>
+                        <span *ngIf="instruction_details_data.buyerBidBusinessCode"><strong>Broker Business Code:</strong> {{instruction_details_data.buyerBidBusinessCode}} <br></span>
+                        <span *ngIf="instruction_details_data.producerBusinessCode"><strong>Producer Business Code:</strong> {{instruction_details_data.producerBusinessCode}} <br></span>
+                        <span *ngIf="instruction_details_data.producerParticipating"><strong>Producer Participating:</strong> {{instruction_details_data.producerParticipating}} <br></span>
+                        <span *ngIf="instruction_details_data.buyerBidBusinessCode"><strong>Broker Business Code:</strong> {{instruction_details_data.buyerBidBusinessCode}} <br></span>
+                        <span *ngIf="instruction_details_data.producerTransactionNo"><strong>Producer Transaction No:</strong>{{instruction_details_data.producerTransactionNo}} <br></span>
+                        <span *ngIf="instruction_details_data.brokerTransactionNo"><strong>Broker Transaction No:</strong> {{instruction_details_data.brokerTransactionNo}}<br></span>
+
+                      </table>
+
+                     </div>
+                      </div>
+                   </div>
+
+                    </div>
+
+                    <div class="pull-right m-t-10" *ngIf="instruction_details_data">
+
+                      <div class="row">
+                        <div class="col-md-12">
+                      <div *ngIf="instruction_details_data">
+                        <strong><h3>Payment Details</h3></strong>
+                        <table>
+                          <span><strong>Tran Date:</strong> 3/4/2019 <br></span>
+                          <span><strong>Tran Id:</strong> 3431<br></span>
+                          <span><strong>Tran Particular:</strong> Ref45089890 <br></span>
+                          <span><strong>Tran Remarks:</strong> Okay <br></span>
+                        </table>
+                      </div>
+                        </div>
+                      </div>
+                      <hr>
+                      <strong><h3 *ngIf="instruction_details_data.producerFinacleStatus">Finacle Details</h3></strong>
+                      <table>
+                        <span *ngIf="instruction_details_data.producerFinacleStatus"><strong>Producer Financle Status :</strong>{{instruction_details_data.producerFinacleStatus}}<br></span>
+                        <span *ngIf="instruction_details_data.producerFinacleReference"><strong>Producer Finacle Reference:</strong> {{instruction_details_data.producerFinacleReference}} <br></span>
+                        <span *ngIf="instruction_details_data.brokerFinacleStatus"><strong>Broker Finacle Status:</strong> {{instruction_details_data.brokerFinacleStatus}}<br></span>
+                        <span *ngIf="instruction_details_data.brokerFinacleReference"><strong>Broker Finacle Reference:</strong> {{instruction_details_data.brokerFinacleReference}}<br></span>
+                      </table>
+
+                    </div>
+
+                  </div><!-- end col -->
+                </div>
+                <!-- end row -->
+
+                <div class="m-h-50"></div>
+                <hr>
+                <div class="hidden-print">
+                  <a href="javascript:window.print()" class="btn btn-inverse waves-effect waves-light"><i class="fa fa-print"></i></a>
+                  <a href="#" class="btn btn-primary waves-effect waves-light">EDIT</a>
+                  <div class="pull-right" *ngIf="userRole === 'MAKER' && instruction_details_data.status === '1'">
+                    <span *ngIf="loadingapprovebtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" data-toggle="modal" href="#maker-settlement-approve-modal" style="cursor: pointer;" (click)="setPayRefNo(instruction_details_data.payRefNo)">Approve</button></span>
+                    <span *ngIf="loadingapprovebtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+                    <span>&nbsp;&nbsp;</span>
+                  </div>
+
+                  <div class="pull-right" *ngIf="userRole === 'CHECKER'  && instruction_details_data.status === '2'">
+                    <span *ngIf="loadingapprovebtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" data-toggle="modal" href="#checker-settlement-approve-modal" style="cursor: pointer;" (click)="setPayRefNo(instruction_details_data.payRefNo)">Approve</button></span>
+                    <span *ngIf="loadingapprovebtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+                    <span>&nbsp;&nbsp;</span>
+                  </div>
+
+                    <!--<div>-->
+                      <!--<p class="text-left font-13" style="margin-top: 10px; float: right">&nbsp;-->
+                        <!--<button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" data-dismiss="modal"> Approve</button>-->
+                      <!--</p>-->
+                    <!--</div>-->
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="tab-pane" id="approval">
+            <h6> Settlement Duration</h6>
+            <select multiple="" name="settlementDuration" class="form-control">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+
+            <div class="row">
+              <div class="col-lg-12 col-md-6">
+                <div class="text-center" style="margin-top: 30px;">
+                  <h4 class="m-b-5">Enforce 3DSecure For Card Payments</h4>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-6">
+              <div class="text-center">
+                <input #saveSecuredCheckBox
+                       id="saveSecuredCheckBox"
+                       type="checkbox"/>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12" style="margin-top:10px">
+                <div class="form-group no-margin">
+                  <label class="control-label">Comment</label>
+                  <textarea class="form-control autogrow" id="field-71" placeholder="comment about this merchants details" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;" name="description"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div>
+
+              <p class="text-left font-13" style="margin-top: 10px; float: right">
+                <!--<a class="btn btn-info waves-effect waves-light" href="/pgw/merchant/validateMerchant/9287862503">-->
+                <!--<span>Validate Merchant</span></a>-->
+                &nbsp;&nbsp;&nbsp;
+               <button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" data-dismiss="modal"> Approve</button>
+
+               <!--<button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" data-dismiss="modal"> Block</button>-->
+
+               <!--<button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit"  data-dismiss="modal"> Reject</button>-->
+
+                <!--<button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit"  data-dismiss="modal"> Return</button>-->
+
+                <!--&nbsp;&nbsp;&nbsp;<span *ngIf="merchantSingleDetails.merchantDetail.merchantStatus === 'PENDING ACTIVATION'">-->
+                        <!--<button type="button" class="btn btn-primary">Delete-->
+                        <!--</button>-->
+                    <!--</span>-->
+              </p>
+
+            </div>
+
+          </div>
+
+          <div id="maker-settlement-approve-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title modal-txt">Approve Settlement Instruction</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <h4>Are you sure you want to approve this Instruction ?</h4>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>
+                    <span><span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="makerApproveSettlement(instruction_details_data.payRefNo)"> Approve</button></span></span>
+                    <span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /.modal -->
+          </div>
+
+          <div id="checker-settlement-approve-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title modal-txt">Approve Settlement Instruction</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <h4>Are you sure you want to approve this Instruction ?</h4>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>
+                    <span><span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="checkerApproveSettlement(instruction_details_data.payRefNo)"> Approve</button></span></span>
+                    <span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /.modal -->
+          </div>
+
+
+          <!--<div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">-->
+            <!--<div class="modal-dialog">-->
+              <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+                  <!--<h4 class="modal-title modal-txt">Assign Charge</h4>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<div class="form-group">-->
+                        <!--<div class="col-md-12" style="margin-left: -15px; margin-top:10px">-->
+
+                          <!--<label for="field-11" class="control-label">Select Charge</label>-->
+                          <!--<select class="form-control" id="field-11" [(ngModel)]="merchantDetails.chargeCode" (change)="getChargeCode($event.target.value)" name="chargeCode">-->
+                            <!--<option  class="form-control" *ngFor="let charge of charges" [value]="charge.chargeCode">{{charge.chargeName}}</option>-->
+                          <!--</select>-->
+                        <!--</div>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-12">-->
+                        <!--<div class="form-group">-->
+                          <!--<div class="col-md-12" style="margin-left: -23px; margin-top:10px">-->
+                            <!--<label for="field-2" class="control-label">Charge paid by</label>-->
+                            <!--<select class="form-control" id="field-2" [(ngModel)]="merchantDetails.status" (change)="getStatus($event.target.value)" name="status">-->
+                              <!--<option value="1">Customer</option>-->
+                              <!--<option value="0">Merchant</option>-->
+                            <!--</select>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-12" style="margin-top:10px">-->
+                        <!--<div class="form-group no-margin">-->
+                          <!--<label for="field-7" class="control-label">Description</label>-->
+                          <!--<textarea class="form-control autogrow" id="field-7" placeholder="Write something about yourself" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;" [(ngModel)] ="merchantDetails.description" name="description"></textarea>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>-->
+                    <!--<span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="assignMerchantCharge(merchantDetails)" data-dismiss="modal"> Assign</button></span>-->
+                    <!--<span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+          <!--</div>-->
+
+
+          <!--<div id="con-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">-->
+            <!--<div class="modal-dialog">-->
+              <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+                  <!--<h4 class="modal-title modal-txt">Edit Merchant Charge</h4>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<div class="form-group" *ngIf="merchantEditDetails">-->
+                        <!--<div class="col-md-12" style="margin-left: -15px; margin-top:10px">-->
+                          <!--<label for="field-1" class="control-label">Select Charge</label>-->
+                          <!--<select class="form-control" id="field-1" [(ngModel)]="merchantEditDetails.chargeCode" (change)="getChargeCode($event.target.value)" name="chargeCode">-->
+                            <!--<option  class="form-control" *ngFor="let charge of charges" [value]="charge.chargeCode">{{charge.chargeName}}</option>-->
+                          <!--</select>-->
+                        <!--</div>-->
+                      <!--</div>-->
+
+                      <!--<div class="col-md-12">-->
+                        <!--<div class="form-group" *ngIf="merchantEditDetails">-->
+                          <!--<div class="col-md-12" style="margin-left: -23px; margin-top:10px">-->
+                            <!--<label for="field-2" class="control-label">Charge paid by</label>-->
+                            <!--<select class="form-control" id="field-2" [(ngModel)]="merchantEditDetails.status" (change)="getStatus($event.target.value)" name="status">-->
+                              <!--<option value="1">Customer</option>-->
+                              <!--<option value="0">Merchant</option>-->
+                            <!--</select>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-12" style="margin-top:10px" *ngIf="merchantEditDetails">-->
+                        <!--<div class="form-group no-margin">-->
+                          <!--<label for="field-7" class="control-label">Description</label>-->
+                          <!--<textarea class="form-control autogrow" id="field-7" placeholder="Write something about yourself" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;" [(ngModel)] ="merchantEditDetails.description" name="description"></textarea>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="modal-footer">-->
+
+                    <!--<button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>-->
+                    <!--<span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="editActiveMerchantChargeDetails(merchantEditDetails)" data-dismiss="modal"> Edit</button></span>-->
+                    <!--<span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+          <!--</div>-->
+
+          <!--<div id="service-approve-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">-->
+            <!--<div class="modal-dialog">-->
+              <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+                  <!--<h4 class="modal-title modal-txt">Approve Service</h4>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                  <!--<div class="row">-->
+                    <!--<h4>Are you sure you want to approve this service ?</h4>-->
+                  <!--</div>-->
+                  <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>-->
+                    <!--<span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="approveService()" data-dismiss="modal"> Approve</button></span>-->
+                    <!--<span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+          <!--</div>-->
+
+          <!--<div id="settlement-account-enable-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">-->
+            <!--<div class="modal-dialog">-->
+              <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+                  <!--<h4 class="modal-title modal-txt">Enable Account</h4>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                  <!--<div class="row">-->
+                    <!--<h4>Are you sure you want to enable this Account ?</h4>-->
+                  <!--</div>-->
+                  <!--<div class="modal-footer">-->
+
+                    <!--<button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>-->
+                    <!--<span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="activateMerchantSettlementAccount()" data-dismiss="modal"> Enable</button></span>-->
+                    <!--<span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+          <!--</div>-->
+
+          <!--<div id="settlement-account-disable-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">-->
+            <!--<div class="modal-dialog">-->
+              <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+                  <!--<h4 class="modal-title modal-txt">Disable Account</h4>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                  <!--<div class="row">-->
+                    <!--<h4>Are you sure you want to disable this Account ?</h4>-->
+                  <!--</div>-->
+                  <!--<div class="modal-footer">-->
+
+                    <!--<button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>-->
+                    <!--<span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="disableMerchantSettlementAccount()" data-dismiss="modal"> Disable</button></span>-->
+                    <!--<span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>-->
+
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+          <!--</div>-->
+
+
+          <!--<div id="outlet-edit-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">-->
+            <!--<div class="modal-dialog">-->
+              <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                  <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>-->
+                  <!--<h4 class="modal-title modal-txt">Edit Outlet</h4>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+
+                      <!--<div class="form-group" *ngIf="merchantoutltResponse">-->
+                        <!--<label for="field-32" class="control-label">Outlet Name</label>-->
+                        <!--<input type="text" class="form-control" id="field-32" placeholder="Address" [(ngModel)] ="merchantoutltResponse.outletName" name="outletname">-->
+                      <!--</div>-->
+                      <!--<div class="form-group" *ngIf="merchantoutltResponse">-->
+                        <!--<label for="field-34" class="control-label">Outlet Code</label>-->
+                        <!--<input type="text" class="form-control" id="field-34" placeholder="Address" [(ngModel)] ="merchantoutltResponse.outletCode" name="outletname">-->
+                      <!--</div>-->
+                      <!--<div class="form-group" *ngIf="merchantoutltResponse">-->
+                        <!--<label for="field-36" class="control-label">Address</label>-->
+                        <!--<input type="text" class="form-control" id="field-36" placeholder="Address" [(ngModel)] ="merchantoutltResponse.address" name="outletname">-->
+                      <!--</div>-->
+                      <!--<div class="form-group" *ngIf="merchantoutltResponse">-->
+                        <!--<label for="field-37" class="control-label">Location</label>-->
+                        <!--<input type="text" class="form-control" id="field-37" placeholder="Address" [(ngModel)] ="merchantoutltResponse.location" name="outletname">-->
+                      <!--</div>-->
+
+                      <!--<div class="form-group" *ngIf="merchantoutltResponse">-->
+                        <!--<div class="col-md-12" style="margin-left: -15px; margin-top:10px">-->
+                          <!--<label for="field-1" class="control-label">Select Mid</label>-->
+                          <!--<select class="form-control" id="field-1" [(ngModel)]="merchantoutltResponse.mid"  name="mid">-->
+                            <!--<option  class="form-control" *ngFor="let mid of merchantMids.data" [value]="mid.id">{{mid.mpgsMerchantId}}</option>-->
+                          <!--</select>-->
+                        <!--</div>-->
+                      <!--</div>-->
+
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn w-md btn-bordered btn-danger waves-effect waves-light" data-dismiss="modal">Close</button>-->
+                    <!--<span *ngIf="loadingbtn === false"><button class="btn w-md btn-bordered btn-danger waves-effect waves-light" type="submit" (click)="editActiveMerchantOutletMids(merchantoutltResponse)"> Edit</button></span>-->
+                    <!--<span *ngIf="loadingbtn === true"><button class="ui primary loading button btn w-md btn-bordered btn-danger waves-effect waves-light">Loading</button></span>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
