@@ -1,4 +1,4 @@
-# IEATTA
+# Web Portal for checked transactions-Maker/Checker model
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
 
